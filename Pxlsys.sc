@@ -6,6 +6,11 @@ Pxlsys : Pattern {
 		^super.newCopyArgs(tree, depth, instantUpdate, repeats);
 	}
 
+	lookup {|collection, repeats=inf, default=nil|
+		default = default ? Rest(1);
+		^PdictRest(collection, this, repeats, default);
+	}
+
 	embedInStream {|inval|
 
 		var treeStream = tree.asStream;
@@ -42,7 +47,7 @@ Pxlsys : Pattern {
 					nextSymbol.isDecDigit.if({
 						nextSymbol.asString.asInteger.yield;
 					}, {
-						nextSymbol.yield;
+						nextSymbol.asSymbol.yield;
 					});
 				});
 
